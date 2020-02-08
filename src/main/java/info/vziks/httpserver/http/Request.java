@@ -27,6 +27,7 @@ public class Request {
     private String method;
     private String route;
     private String host;
+    private String location;
     private Map<String, String> authorization;
     private Map<String, Integer> range;
     private Map<String, String> params;
@@ -43,6 +44,7 @@ public class Request {
         this.route = this.initRoute();
         this.host = headers.get("Host");
         this.authorization = this.getAuth();
+        this.location = this.getLocation();
         this.range = this.initRange();
         this.params = this.getParams();
         this.log = headerString + body;
@@ -133,6 +135,14 @@ public class Request {
         return protocol;
     }
 
+    public String getLocation() {
+        String location = headers.get("Location");
+        if (location == null) {
+            location = "/";
+        }
+        return location;
+    }
+
     public Map<String, Integer> initRange() {
         Map<String, Integer> rangeMap = new HashMap<>();
         String[] range = this.searchHeaders("((?<=\\nRange: bytes=)([^\\r]+))").split("-");
@@ -201,6 +211,7 @@ public class Request {
     public Map<String, String> getAuthorization() {
         return authorization;
     }
+
 
     public String getLog() {
         return log;

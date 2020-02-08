@@ -32,9 +32,13 @@ public class HTTPServer {
         ExecutorService executor = Executors.newFixedThreadPool(config.getPoll());
 
         System.out.printf("Http Server started at %s\n" +
-                "Listening on http://127.0.0.1:%d\n" +
-                "Document root is %s\n" +
-                "Press Ctrl-C to quit.\n", java.util.Calendar.getInstance().getTime(), config.getPort(), config.getDir());
+                        "Listening on http://127.0.0.1:%d\n" +
+                        "Document root is %s\n" +
+                        "Press Ctrl-C to quit.\n",
+                java.util.Calendar.getInstance().getTime(),
+                config.getPort(),
+                config.getDir()
+        );
 
         while (!serverSocket.isClosed()) {
             try {

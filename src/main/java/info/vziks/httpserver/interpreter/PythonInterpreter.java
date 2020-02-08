@@ -1,6 +1,7 @@
 package info.vziks.httpserver.interpreter;
 
 import info.vziks.httpserver.interfaces.Interpreter;
+import info.vziks.httpserver.utils.RequestLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class PythonInterpreter extends AbstractInterpreter implements Interprete
         try {
             content = Files.readAllBytes(path);
         } catch (IOException e) {
+            RequestLogger.log(RequestLogger.ERROR, e);
             e.printStackTrace();
         }
 

@@ -8,6 +8,7 @@ import org.junit.runners.Suite;
         TextBodyTest.class,
         StatusCodeTest.class,
         DirectoryControllerTest.class,
+        FileControllerTest.class,
         InputControllerTest.class,
         OptionsControllerTest.class,
         ParamControllerTest.class,

@@ -10,8 +10,8 @@ public class RedirectController extends Controller {
     @Override
     public Response get() {
         Response response = new Response(StatusCode.MOVED_PERMANENTLY.getCode());
-        response.addBody(new TextBody("<html><head><meta http-equiv='refresh' content='0 ; url=/'></head></html>"));
-        String location = "http://" + request.getHost() + "/";
+        response.addBody(new TextBody("<html><head><meta http-equiv='refresh' content='0 ; url=" + request.getLocation() + "'></head></html>"));
+        String location = "http://" + request.getHost() + request.getLocation();
         response.addHeader("Location", location);
         return response;
     }

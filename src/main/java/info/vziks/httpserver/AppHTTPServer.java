@@ -25,6 +25,7 @@ public class AppHTTPServer {
         HTTPServer httpServer = null;
         try {
             httpServer = new HTTPServer(arguments.getConfig(), new RequestLogger(requestHandler));
+//            throw new IOException();
         } catch (IOException e) {
             RequestLogger.log(RequestLogger.ERROR, e);
             e.printStackTrace();

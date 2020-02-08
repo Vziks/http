@@ -2,6 +2,7 @@ package info.vziks.httpserver.interpreter;
 
 import info.vziks.httpserver.app.Config;
 import info.vziks.httpserver.interfaces.Interpreter;
+import info.vziks.httpserver.utils.RequestLogger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,6 +32,7 @@ abstract public class AbstractInterpreter implements Interpreter {
         try {
             process = builder.start();
         } catch (IOException e) {
+            RequestLogger.log(RequestLogger.ERROR, e);
             e.printStackTrace();
         }
 
@@ -41,12 +43,14 @@ abstract public class AbstractInterpreter implements Interpreter {
                 stringBuilder.append("\n\t");
             }
         } catch (IOException e) {
+            RequestLogger.log(RequestLogger.ERROR, e);
             e.printStackTrace();
         }
 
         try {
             Objects.requireNonNull(process).waitFor();
         } catch (InterruptedException e) {
+            RequestLogger.log(RequestLogger.ERROR, e);
             e.printStackTrace();
         }
 
