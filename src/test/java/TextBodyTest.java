@@ -22,12 +22,12 @@ public class TextBodyTest {
 
     @Test
     public void returnsContentLength() {
-        assertEquals(31, body.contentLength());
+        assertEquals(46, body.contentLength());
     }
 
     @Test
     public void returnsByteOutput() {
         assertEquals(byte[].class, body.output().getClass());
-        assertEquals(31, body.output().length);
+        assertEquals(46, body.output().length);
     }
 }

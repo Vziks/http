@@ -7,6 +7,7 @@ import info.vziks.httpserver.interpreter.PythonInterpreter;
 import info.vziks.httpserver.utils.RequestLogger;
 import org.apache.tika.Tika;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.GZIPOutputStream;
 
 public class FileBody implements HTTPBody {
 
@@ -54,7 +56,7 @@ public class FileBody implements HTTPBody {
             RequestLogger.log(RequestLogger.ERROR, e);
             e.printStackTrace();
         }
-        return output;
+        return this.gzipCompress(output);
     }
 
     public String contentType() {
@@ -82,6 +84,20 @@ public class FileBody implements HTTPBody {
     private byte[] readFile() throws IOException {
         Path path = Paths.get(filePath);
         return Arrays.copyOfRange(Files.readAllBytes(path), start, stop);
+    }
+
+
+    public static byte[] gzipCompress(byte[] uncompressedData) {
+        byte[] result = new byte[]{};
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream(uncompressedData.length);
+             GZIPOutputStream gzipOS = new GZIPOutputStream(bos)) {
+            gzipOS.write(uncompressedData);
+            gzipOS.close();
+            result = bos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }

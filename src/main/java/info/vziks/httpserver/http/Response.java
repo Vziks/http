@@ -70,6 +70,7 @@ public class Response {
 
     private String buildHeaders() {
         this.addHeader("server", SERVER_NAME);
+        this.addHeader("content-encoding", "gzip");
         this.addHeader("Connection", "close");
         this.addHeader("Date", DateTimeFormatter.RFC_1123_DATE_TIME.format(ZonedDateTime.now(ZoneId.systemDefault())));
         if (body != null) {

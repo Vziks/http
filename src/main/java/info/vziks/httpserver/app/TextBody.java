@@ -1,5 +1,6 @@
 package info.vziks.httpserver.app;
 
+import info.vziks.httpserver.controller.FileBody;
 import info.vziks.httpserver.interfaces.HTTPBody;
 
 public class TextBody implements HTTPBody {
@@ -11,7 +12,7 @@ public class TextBody implements HTTPBody {
     }
 
     public byte[] output() {
-        return text.getBytes();
+        return FileBody.gzipCompress(text.getBytes());
     }
 
     public String contentType() {
@@ -19,7 +20,7 @@ public class TextBody implements HTTPBody {
     }
 
     public long contentLength() {
-        return text.length();
+        return output().length;
     }
 
     public String getText() {
